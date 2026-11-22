@@ -39,11 +39,13 @@ backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 0 30px 
 button{font:italic 1.3rem 'Cormorant Garamond',serif;color:#fff3ee;background:transparent;border:1px solid rgba(255,23,68,.6);border-radius:30px;padding:10px 28px;cursor:pointer;
 box-shadow:0 0 18px rgba(255,23,68,.35);transition:.3s}
 button:hover{background:rgba(255,23,68,.25)}
-#poem{max-width:560px;max-height:78dvh;overflow:auto;padding:8px}
-.st{margin:0 0 1.5em}
-.l{display:block;font-size:clamp(1.15rem,4.6vw,1.5rem);line-height:1.6;opacity:0;transform:translateY(10px);filter:blur(6px);transition:opacity 1.4s,transform 1.4s,filter 1.4s}
+#poem{max-width:560px;min-height:34dvh;display:flex;flex-direction:column;justify-content:center;transition:opacity .9s,filter .9s}
+.st{margin:0}
+.l{display:block;font-size:clamp(1.25rem,5vw,1.7rem);line-height:1.7;opacity:0;transform:translateY(10px);filter:blur(6px);transition:opacity 1.4s,transform 1.4s,filter 1.4s}
 .l.show{opacity:1;transform:none;filter:none}
-#end{opacity:0;transition:opacity 1.5s}
+#nx{margin-top:1.6rem;opacity:0;pointer-events:none}
+#nx.show{opacity:1;pointer-events:auto}
+#end{display:none;opacity:0;transition:opacity 1.5s}
 #end.show{opacity:1}
 .heart{font-size:2.4rem;color:var(--r);display:inline-block;animation:beat 1.2s infinite;text-shadow:0 0 18px var(--r)}
 @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
@@ -83,6 +85,7 @@ button:hover{background:rgba(255,23,68,.25)}
 
 <section class="scr" id="s3">
 <div id="poem"></div>
+<button id="nx">Siguiente ♥</button>
 <div id="end"><div class="heart">♥</div><div class="sub" id="firma"></div><button onclick="location.reload()">Volver a empezar</button></div>
 </section>
 
@@ -149,11 +152,17 @@ function tick(){let t=Math.max(0,Date.now()-new Date(CONFIG.fechaInicio).getTime
  $("d").textContent=t/86400|0;$("h").textContent=(t/3600|0)%24;$("m").textContent=(t/60|0)%60;$("s").textContent=t%60}
 tick();setInterval(tick,1000);
 
-/* ============ POEMA ============ */
-$("go3").onclick=()=>{$("s2").classList.remove("on");$("s3").classList.add("on");
- $("poem").innerHTML=CONFIG.poema.map(s=>`<p class="st">${s.map(l=>`<span class="l">${fx(l)}</span>`).join("")}</p>`).join("");
- const ls=[...document.querySelectorAll(".l")];ls.forEach((el,i)=>setTimeout(()=>{el.classList.add("show");el.scrollIntoView({block:"end",behavior:"smooth"})},1800+i*1500));
- setTimeout(()=>{$("end").classList.add("show");burst(innerWidth/2,innerHeight/2)},1800+ls.length*1500+800)};
+/* ============ POEMA (estilo diapositivas) ============ */
+let si=0;const nx=$("nx"),PO=$("poem");
+function showSt(){const s=CONFIG.poema[si];PO.style.opacity=1;PO.style.filter="none";
+ PO.innerHTML=`<p class="st">${s.map(l=>`<span class="l">${fx(l)}</span>`).join("")}</p>`;
+ const ls=[...PO.querySelectorAll(".l")];nx.classList.remove("show");
+ ls.forEach((el,i)=>setTimeout(()=>el.classList.add("show"),500+i*1400));
+ setTimeout(()=>{nx.textContent=si<CONFIG.poema.length-1?"Siguiente ♥":"Continuar ♥";nx.classList.add("show")},500+ls.length*1400+400)}
+$("go3").onclick=()=>{$("s2").classList.remove("on");$("s3").classList.add("on");setTimeout(showSt,1400)};
+nx.onclick=()=>{nx.classList.remove("show");PO.style.opacity=0;PO.style.filter="blur(8px)";
+ setTimeout(()=>{si++;if(si<CONFIG.poema.length){showSt()}else{PO.style.display="none";nx.style.display="none";
+  const e=$("end");e.style.display="block";requestAnimationFrame(()=>requestAnimationFrame(()=>e.classList.add("show")));burst(innerWidth/2,innerHeight/2)}},900)};
 
 /* ============ PÉTALOS Y DESTELLOS ============ */
 const cv=$("bg"),cx=cv.getContext("2d");let W,H,P=[];
