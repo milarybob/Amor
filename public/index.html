@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Para ti, my little petal ♥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--r:#ff1744}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;color:#fff3ee;font-family:'Cormorant Garamond',Georgia,serif;
+background:radial-gradient(ellipse at 50% 25%,#3d0a1e 0%,#18040d 60%,#0a0206 100%);-webkit-user-select:none;user-select:none}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(transparent 50%,rgba(0,0,0,.65));z-index:2}
+canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.scr{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;
+opacity:0;visibility:hidden;transform:scale(1.08);filter:blur(14px);transition:opacity 1.5s,transform 1.5s,filter 1.5s,visibility 1.5s}
+.scr.on{opacity:1;visibility:visible;transform:none;filter:none}
+h1,h2{font-family:'Great Vibes',cursive;font-weight:400;margin:0}
+h1{font-size:clamp(2.6rem,12vw,5rem);text-shadow:0 0 26px rgba(255,23,68,.55)}
+h1 b{color:var(--r);font-weight:400}
+.sub{font-style:italic;font-size:clamp(1.2rem,5vw,1.7rem);opacity:.85;margin:.4em 0 1em}
+#fp{width:min(60vw,250px);aspect-ratio:1;margin:1.4rem 0;touch-action:none;cursor:pointer;position:relative}
+svg{width:100%;height:100%;overflow:visible;display:block}
+svg path{fill:none;stroke-width:3.2;stroke-linecap:round}
+.dim path{stroke:rgba(255,230,230,.3)}
+.lit path{stroke:var(--r)}
+.lit{filter:drop-shadow(0 0 6px var(--r)) drop-shadow(0 0 16px rgba(255,23,68,.7))}
+#ring0{fill:none;stroke:rgba(255,23,68,.22);stroke-width:3}
+#prog{fill:none;stroke:var(--r);stroke-width:4;stroke-linecap:round;transform:rotate(-90deg);transform-origin:100px 100px;filter:drop-shadow(0 0 8px var(--r))}
+#scan{stroke:#fff;stroke-width:2;opacity:0;filter:drop-shadow(0 0 8px var(--r))}
+#hint{font-style:italic;font-size:1.3rem;min-height:1.6em;transition:opacity .4s}
+#welcome{font-family:'Great Vibes',cursive;font-size:clamp(2rem,9vw,3.4rem);position:absolute;bottom:14%;opacity:0;transition:opacity 1.2s;text-shadow:0 0 20px var(--r)}
+.cards{display:flex;gap:10px;margin:1.6rem 0;flex-wrap:wrap;justify-content:center}
+.card{width:clamp(70px,20vw,110px);padding:16px 4px 12px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 0 30px rgba(255,23,68,.18)}
+.card b{display:block;font-size:clamp(1.8rem,8vw,2.8rem);font-weight:600;text-shadow:0 0 14px rgba(255,23,68,.6)}
+.card small{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;opacity:.65}
+button{font:italic 1.3rem 'Cormorant Garamond',serif;color:#fff3ee;background:transparent;border:1px solid rgba(255,23,68,.6);border-radius:30px;padding:10px 28px;cursor:pointer;
+box-shadow:0 0 18px rgba(255,23,68,.35);transition:.3s}
+button:hover{background:rgba(255,23,68,.25)}
+#s3{justify-content:flex-start;overflow-y:auto;overflow-x:hidden;padding:0;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+background:radial-gradient(circle at 12% 18%,rgba(255,23,68,.16),transparent 42%),radial-gradient(circle at 88% 65%,rgba(255,176,90,.12),transparent 42%)}
+#s3::-webkit-scrollbar{display:none}
+#poem{width:100%}
+.st{margin:0;min-height:82dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:34px 22px}
+.st::after{content:"↓";margin-top:1.6rem;font-size:1.6rem;color:var(--r);opacity:.7;animation:bob 1.8s infinite;text-shadow:0 0 12px var(--r)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.st .card{position:relative;width:min(92vw,520px);padding:46px 20px 30px;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,23,68,.07));
+border:1px solid rgba(255,190,190,.24);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 0 60px rgba(255,23,68,.18),inset 0 0 34px rgba(255,255,255,.04);
+opacity:0;transform:translateY(34px) scale(.95);transition:opacity 1.3s,transform 1.3s}
+.st.in .card{opacity:1;transform:none}
+.st .card::before,.st .card::after{content:"";position:absolute;width:34px;height:34px;border:2px solid #e8c27a;opacity:.85;filter:drop-shadow(0 0 6px rgba(232,194,122,.6))}
+.st .card::before{top:10px;left:10px;border-right:0;border-bottom:0;border-top-left-radius:14px}
+.st .card::after{bottom:10px;right:10px;border-left:0;border-top:0;border-bottom-right-radius:14px}
+.num{position:absolute;top:-24px;left:50%;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;display:grid;place-items:center;
+font:1.9rem 'Great Vibes',cursive;color:#fff;background:radial-gradient(circle,#b0102e,#4a0616);border:2px solid #e8c27a;box-shadow:0 0 22px rgba(255,23,68,.7)}
+.rose{position:absolute;width:74px;height:74px;filter:drop-shadow(0 0 12px rgba(255,23,68,.65));animation:sway 5s ease-in-out infinite;pointer-events:none}
+.rose.a{top:-30px;left:-24px;transform:rotate(-18deg)}.rose.b{bottom:-30px;right:-24px;transform:rotate(160deg)}
+.st:nth-child(even) .rose.a{left:auto;right:-24px;top:-30px}.st:nth-child(even) .rose.b{right:auto;left:-24px}
+@keyframes sway{0%,100%{rotate:-4deg}50%{rotate:5deg}}
+.dv{display:flex;align-items:center;gap:10px;margin:1.3rem auto 0;color:#e8c27a;font-size:.95rem;opacity:.9}
+.dv i{flex:1;height:1px;background:linear-gradient(90deg,transparent,#e8c27a,transparent)}
+.l{display:block;text-align:center;font-size:clamp(1rem,4vw,1.4rem);line-height:1.62;text-shadow:0 0 18px rgba(255,23,68,.35);opacity:0;transform:translateY(10px);filter:blur(6px);transition:opacity 1.4s,transform 1.4s,filter 1.4s}
+.stt{font-family:'Great Vibes',cursive;font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.2;color:#ffd9de;margin-bottom:.7rem;text-shadow:0 0 22px rgba(255,23,68,.6)}
+.q{padding:.1rem 0}
+.dv.sm{margin:.7rem auto;width:60%;font-size:.8rem;opacity:.75}
+.l.show{opacity:1;transform:none;filter:none}
+.intro{text-align:center}
+.intro .orn{color:#e8c27a;letter-spacing:.5em;font-size:1.1rem;text-shadow:0 0 12px rgba(232,194,122,.7)}
+.intro h2{font-size:clamp(3rem,14vw,5.2rem);line-height:1.1;margin:.2em 0;text-shadow:0 0 30px rgba(255,23,68,.7)}
+#end{min-height:82dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;opacity:0;transition:opacity 1.5s;padding:0 24px}
+#end.show{opacity:1}
+.roses{display:flex;align-items:center;gap:16px;margin-bottom:.6rem}.roses .rose{position:static;width:78px;height:78px}
+.heart{font-size:2.4rem;color:var(--r);display:inline-block;animation:beat 1.2s infinite;text-shadow:0 0 18px var(--r)}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
+@media (prefers-reduced-motion:reduce){.scr,.l{transition-duration:.01s}.heart{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><radialGradient id="rg" cx=".4" cy=".35"><stop offset="0" stop-color="#ff6b85"/><stop offset="1" stop-color="#8e0a24"/></radialGradient>
+<symbol id="rs" viewBox="0 0 100 100"><path d="M50 96C47 80 28 76 14 70 32 84 40 90 50 96ZM50 96C53 80 72 76 86 70 68 84 60 90 50 96Z" fill="#1d6a3a"/><circle cx="50" cy="46" r="38" fill="url(#rg)"/>
+<path d="M50 14C78 14 86 48 60 60 38 68 28 40 47 33 61 28 68 46 54 50" fill="none" stroke="#ffc2cd" stroke-opacity=".6" stroke-width="3" stroke-linecap="round"/>
+<path d="M18 50C20 80 64 88 82 56" fill="none" stroke="#5a0516" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/><path d="M30 24C42 14 62 14 72 26" fill="none" stroke="#ffc2cd" stroke-opacity=".35" stroke-width="2.5" stroke-linecap="round"/></symbol></defs></svg>
+<canvas id="bg"></canvas>
+
+<section class="scr on" id="s1">
+<h1 id="t1"></h1>
+<div id="fp">
+<svg viewBox="0 0 200 200" aria-label="Huella">
+<defs><clipPath id="clip"><rect id="cr" x="-20" y="210" width="240" height="0"/></clipPath></defs>
+<circle id="ring0" cx="100" cy="100" r="96"/>
+<circle id="prog" cx="100" cy="100" r="96" stroke-dasharray="603.2" stroke-dashoffset="603.2"/>
+<g class="dim" id="dim"></g>
+<g class="lit" id="lit" clip-path="url(#clip)"></g>
+<line id="scan" x1="30" x2="170" y1="0" y2="0"/>
+</svg>
+</div>
+<div id="hint">Mantén presionada la huella ♥</div>
+<div id="welcome"></div>
+</section>
+
+<section class="scr" id="s2">
+<h1>Tú <b>y</b> Yo</h1>
+<div class="sub" id="sub"></div>
+<div class="cards">
+<div class="card"><b id="d">0</b><small>días</small></div>
+<div class="card"><b id="h">0</b><small>horas</small></div>
+<div class="card"><b id="m">0</b><small>minutos</small></div>
+<div class="card"><b id="s">0</b><small>segundos</small></div>
+</div>
+<button id="go3">Continuar ↓</button>
+</section>
+
+<section class="scr" id="s3">
+<div id="poem"></div>
+<div id="end"><div class="roses"><svg class="rose"><use href="#rs"/></svg><div class="heart">♥</div><svg class="rose"><use href="#rs"/></svg></div><div class="sub" id="firma"></div><button onclick="location.reload()">Volver a empezar</button></div>
+</section>
+
+<script>
+/* ============ CONFIG: edita aquí ============ */
+const CONFIG={
+  nombre:"mi Rutdailyn", apodo:"My little petal",   // tu nombre y apodo (se reemplazan solos en el poema)
+  fechaInicio:"2026-10-22T18:36:14-05:00",   // fecha y hora en que empezaron
+  titulo1:"Para ti, mi amor", bienvenida:"Bienvenida, amor",
+  subtitulo:"feliz mes, my little petal — esto es lo que llevamos juntos",
+  firma:"Con todo mi amor",
+  // Cada estrofa: titulo + dos cuartetos (4 versos c/u). {apodo} y {nombre} se reemplazan solos.
+  poema:[
+    {t:"Cuando llegaste",v:[
+      ["No te buscaba, y justo me encontraste,","sin ruido, sin aviso, sin señal;","con solo sonreír todo lo cambiaste","y mi mundo ya nunca fue igual."],
+      ["Hay personas que llegan por casualidad","y se quedan después como una certeza;","tú llegaste así, {apodo}, y mi verdad","se volvió tu nombre, tu voz, tu belleza."]]},
+    {t:"Tu forma de ser",v:[
+      ["Qué bonita eres, qué dicha poder mirarte,","qué suerte la mía de poder quererte;","no hay luz en el cielo que logre igualarte","ni verso que alcance a poder contenerte."],
+      ["Eres dulzura, fuerza, calma y fuego,","eres la risa que me cura el día,","y si el mundo se apaga, yo me entrego","a la luz de tu voz, que es mi alegría."]]},
+    {t:"Un mes contigo",v:[
+      ["Un mes apenas, y ya siento que es vida,","un mes de abrazos que el aire no alcanzó;","un mes de tenerte en mi alma metida,","un mes en que el tiempo por ti se paró."],
+      ["Cada día contigo es un motivo nuevo,","sonrío en silencio sin saber por qué;","y es que en cada latido ya te llevo","y en cada pensamiento siempre estás, lo sé."]]},
+    {t:"La distancia",v:[
+      ["La pantalla es fría, pero tu voz me abriga,","y el mapa nos separa, pero no el querer;","no hay distancia que a mi corazón consiga","alejarlo de ti ni un solo amanecer."],
+      ["Cuento los días hasta que te abrace,","para volver mis sueños realidad;","y aunque hoy solo el cielo nos enlace,","te quiero con la misma intensidad."]]},
+    {t:"Lo que sueño contigo",v:[
+      ["Sueño con tu mano entre la mía,","con tardes sin prisa a tu lado,","con ser tu refugio y tu compañía","y sentirme el más afortunado."],
+      ["Quiero cuidarte cuando todo duela,","quiero que en mí tengas siempre un lugar,","y que mi amor, que siempre te consuela,","te recuerde que juntos vamos a llegar."]]},
+    {t:"Tu huella",v:[
+      ["Dicen que cada huella es única en el mundo,","que no hay dos iguales, ninguna repetida;","la tuya quedó en mí, en lo más profundo,","y aunque pase el tiempo, no está perdida."],
+      ["Por eso te pedí que la dejaras aquí,","hasta ver cómo la luz se encendía;","porque así se enciende todo en mí","cada vez que tu nombre aparecía."]]},
+    {t:"Mi promesa",v:[
+      ["Prometo escucharte cuando quieras hablar,","prometo abrazarte aunque sea de lejos;","prometo nunca dejarte de amar","y quererte aún cuando seamos viejos."],
+      ["Prometo ser tu paz y tu abrigo,","prometo cuidar lo que construimos hoy,","ser tu compañero, tu mejor amigo,","y allá donde tú vayas, también voy."]]},
+    {t:"Gracias",v:[
+      ["Gracias por quedarte, por creer en mí,","por cada mensaje, cada llamada,","por hacerme sentir tan feliz así","y por ser, sencillamente, mi amada."],
+      ["Gracias por ser mi lugar favorito,","mi pausa, mi casa, mi destino;","y si alguien pregunta qué es infinito,","le diré que es tu nombre en mi camino."]]},
+    {t:"Te amo",v:[
+      ["Te amo, {nombre}, con todo lo que soy,","te amo al despertar, con todo mi amor;","si ayer te quería, ya no sé cuánto hoy,","y mañana te amaré con más fervor."],
+      ["Feliz primer mes, {apodo},","feliz comienzo de lo que ha de venir;","que nuestro amor sea siempre un río","que nunca se canse de fluir."]]}
+  ]
+};
+const $=id=>document.getElementById(id), fx=t=>t.replace("{apodo}",CONFIG.apodo).replace("{nombre}",CONFIG.nombre);
+$("t1").textContent=CONFIG.titulo1; $("sub").textContent=CONFIG.subtitulo; $("firma").textContent=CONFIG.firma;
+$("welcome").textContent=CONFIG.bienvenida;
+
+/* ============ HUELLA SVG ============ */
+(function(){let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;let d="";
+for(let i=1;i<=9;i++){const r=8+i*9,ry=r*1.18,cy=108;
+ const p=`M${100-r} ${cy} A${r} ${ry} 0 1 1 ${100+r} ${cy}`;
+ const dash=`${(40+rnd()*60).toFixed(0)} ${(3+rnd()*5).toFixed(0)} ${(30+rnd()*50).toFixed(0)} ${(3+rnd()*5).toFixed(0)}`;
+ d+=`<path d="${p}" stroke-dasharray="${dash}"/>`;}
+d+=`<path d="M72 150 Q70 128 82 118"/><path d="M128 150 Q130 128 118 118"/><path d="M100 160 Q100 140 100 128"/>`;
+$("dim").innerHTML=d;$("lit").innerHTML=d;})();
+
+/* ============ AUDIO (sintetizado, sin archivos) ============ */
+let ac,osc,og;
+const AC=()=>{ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume&&ac.resume();return ac};
+function tone(f,t0,dur,g=.12,type="sine"){const a=AC(),o=a.createOscillator(),v=a.createGain();o.type=type;o.frequency.value=f;
+ v.gain.setValueAtTime(0,a.currentTime+t0);v.gain.linearRampToValueAtTime(g,a.currentTime+t0+.03);v.gain.exponentialRampToValueAtTime(.0001,a.currentTime+t0+dur);
+ o.connect(v).connect(a.destination);o.start(a.currentTime+t0);o.stop(a.currentTime+t0+dur+.05)}
+const scanStart=()=>{try{const a=AC();osc=a.createOscillator();og=a.createGain();osc.type="triangle";og.gain.value=.05;osc.connect(og).connect(a.destination);osc.start()}catch(e){}};
+const scanStop=()=>{try{osc&&osc.stop();osc=null}catch(e){}};
+const vib=p=>navigator.vibrate&&navigator.vibrate(p);
+
+/* ============ ESCÁNER ============ */
+let p=0,hold=false,done=false,last=performance.now(),mark=0;
+const fp=$("fp"),prog=$("prog"),cr=$("cr"),scan=$("scan"),hint=$("hint");
+fp.addEventListener("contextmenu",e=>e.preventDefault());
+fp.addEventListener("pointerdown",e=>{if(done)return;e.preventDefault();fp.setPointerCapture&&fp.setPointerCapture(e.pointerId);hold=true;hint.textContent="Escaneando…";scanStart()});
+["pointerup","pointercancel","pointerleave"].forEach(ev=>fp.addEventListener(ev,()=>{if(!hold||done)return;hold=false;scanStop();if(p>.05){hint.textContent="Sigue presionando… ♥";tone(140,0,.35,.1,"sawtooth");vib(30)}}));
+function loop(now){const dt=now-last;last=now;
+ if(!done){p+=hold?dt/3000:-dt/700;p=Math.max(0,Math.min(1,p));
+  prog.style.strokeDashoffset=603.2*(1-p);cr.setAttribute("y",210-230*p);cr.setAttribute("height",230*p);
+  scan.style.opacity=hold&&p>0?1:0;scan.setAttribute("y1",210-230*p);scan.setAttribute("y2",210-230*p);
+  if(osc)osc.frequency.value=180+p*520;
+  if(hold&&p>=mark+.25){mark+=.25;vib(25)}if(!hold)mark=Math.floor(p/.25)*.25;
+  if(p>=1)complete();}
+ requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+function complete(){done=true;hold=false;scanStop();scan.style.opacity=0;
+ [523,659,784,1047].forEach((f,i)=>tone(f,i*.14,1.4,.1));vib([60,40,140]);burst(innerWidth/2,innerHeight/2.2);
+ hint.textContent="";$("welcome").style.opacity=1;
+ setTimeout(()=>{$("s1").classList.remove("on");$("s2").classList.add("on")},2600)}
+
+/* ============ CONTADOR ============ */
+function tick(){let t=Math.max(0,Date.now()-new Date(CONFIG.fechaInicio).getTime())/1000|0;
+ $("d").textContent=t/86400|0;$("h").textContent=(t/3600|0)%24;$("m").textContent=(t/60|0)%60;$("s").textContent=t%60}
+tick();setInterval(tick,1000);
+
+/* ============ POEMA (se baja con scroll) ============ */
+const ROM=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
+$("go3").onclick=()=>{$("s2").classList.remove("on");const s3=$("s3");s3.classList.add("on");s3.scrollTop=0;
+ const R='<svg class="rose a"><use href="#rs"/></svg><svg class="rose b"><use href="#rs"/></svg>';
+ $("poem").innerHTML=`<div class="st intro"><div class="orn l">✦ ❦ ✦</div><h2 class="l">Un poema para ti</h2><div class="sub l">${CONFIG.apodo}</div></div>`+
+  CONFIG.poema.map((s,i)=>`<div class="st"><div class="card"><div class="num">${ROM[i]}</div>${R}<div class="stt l">${s.t}</div>`+
+   s.v.map((q,j)=>`<div class="q">${q.map(l=>`<span class="l">${fx(l)}</span>`).join("")}</div>`+(j<s.v.length-1?'<div class="dv sm"><i></i>✦<i></i></div>':"")).join("")+
+   `<div class="dv"><i></i>♥<i></i></div></div></div>`).join("");
+ setTimeout(()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);
+  if(e.target.id==="end"){e.target.classList.add("show");burst(innerWidth/2,innerHeight/2)}
+  else{e.target.classList.add("in");e.target.querySelectorAll(".l").forEach((l,i)=>setTimeout(()=>l.classList.add("show"),300+i*380))}}),{root:s3,threshold:.25});
+  document.querySelectorAll(".st").forEach(el=>io.observe(el));io.observe($("end"))},1500)};
+
+/* ============ PÉTALOS Y DESTELLOS ============ */
+const cv=$("bg"),cx=cv.getContext("2d");let W,H,P=[];
+const rs=()=>{const r=devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*r;cv.height=H*r;cx.setTransform(r,0,0,r,0,0)};rs();addEventListener("resize",rs);
+const mk=(x,y,burst)=>({x,y,s:burst?5+Math.random()*9:6+Math.random()*12,r:Math.random()*6.28,vr:(Math.random()-.5)*.04,
+ vx:burst?(Math.random()-.5)*9:(Math.random()-.5)*.6,vy:burst?-Math.random()*8-2:.5+Math.random()*1.3,a:.35+Math.random()*.6,life:burst?1:null,sp:Math.random()<.18});
+for(let i=0;i<(W<600?32:60);i++)P.push(mk(Math.random()*W,Math.random()*H));
+function burst(x,y){for(let i=0;i<70;i++)P.push(mk(x,y,true))}
+function draw(){cx.clearRect(0,0,W,H);
+ for(let i=P.length-1;i>=0;i--){const q=P[i];q.x+=q.vx+Math.sin(q.y/60+q.r)*.3;q.y+=q.vy;q.r+=q.vr;
+  if(q.life!==null){q.vy+=.18;q.vx*=.985;q.life-=.008;if(q.life<=0||q.y>H+30){P.splice(i,1);continue}}
+  else if(q.y>H+20){q.y=-20;q.x=Math.random()*W}
+  const al=q.a*(q.life===null?1:Math.max(q.life,0));
+  cx.save();cx.translate(q.x,q.y);cx.rotate(q.r);cx.globalAlpha=al;
+  if(q.sp){cx.fillStyle="#ffd9a0";cx.shadowColor="#ffb25a";cx.shadowBlur=14;cx.beginPath();cx.arc(0,0,q.s*.18,0,6.28);cx.fill()}
+  else{cx.fillStyle="#c2102f";cx.shadowColor="rgba(255,23,68,.6)";cx.shadowBlur=8;cx.beginPath();cx.moveTo(0,-q.s);
+   cx.quadraticCurveTo(q.s,-q.s*.2,0,q.s);cx.quadraticCurveTo(-q.s,-q.s*.2,0,-q.s);cx.fill()}
+  cx.restore()}
+ requestAnimationFrame(draw)}
+draw();
+</script>
+</body>
+</html>
